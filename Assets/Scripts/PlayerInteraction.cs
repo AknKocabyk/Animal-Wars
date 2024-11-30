@@ -2,34 +2,50 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public AnimalGroup[] animalGroups;
+    public float interactionRange = 3f;  // Hayvana yaklaşmak için mesafe
+    public KeyCode interactKey = KeyCode.E;  // Etkileşim tuşu
+    private Animal nearestAnimal;  // En yakın hayvan
 
-    private void Start()
+    void Update()
     {
-        // 4 farklı hayvan grubu oluştur
-        animalGroups = new AnimalGroup[4];
-        animalGroups[0] = new AnimalGroup("Cow");
-        animalGroups[1] = new AnimalGroup("Dog");
-        animalGroups[2] = new AnimalGroup("Grup 3");
-        animalGroups[3] = new AnimalGroup("Grup 4");
+        // En yakın hayvanı bul
+        FindNearestAnimal();
+
+        if (nearestAnimal != null)
+        {
+            // Eğer 'E' tuşuna basılırsa ve hayvana yaklaşıldıysa
+            if (Vector3.Distance(transform.position, nearestAnimal.transform.position) <= interactionRange && Input.GetKeyDown(interactKey))
+            {
+                PetAnimal(nearestAnimal);
+            }
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void FindNearestAnimal()
     {
-        // Hayvanlarla etkileşim
-        if (other.CompareTag("Animal"))
-        {
-            string group = other.GetComponent<Animal>().groupName;
+        // En yakın hayvanı bulmak için tüm hayvanları tarıyoruz
+        Animal[] allAnimals = FindObjectsOfType<Animal>();
+        float closestDistance = Mathf.Infinity;
+        nearestAnimal = null;
 
-            // İlgili grup puanını artır
-            foreach (AnimalGroup animalGroup in animalGroups)
+        foreach (Animal animal in allAnimals)
+        {
+            float distance = Vector3.Distance(transform.position, animal.transform.position);
+            if (distance < closestDistance)
             {
-                if (animalGroup.groupName == group)
-                {
-                    animalGroup.UpdateRelationshipPoints(5); // Örneğin, 5 puan ekle
-                    Debug.Log($"{group} ile ilişkiniz iyileşti! Puan: {animalGroup.relationshipPoints}");
-                }
+                closestDistance = distance;
+                nearestAnimal = animal;
             }
+        }
+    }
+
+    void PetAnimal(Animal animal)
+    {
+        // Hayvanı sevdiğimizde, grubun ilişki puanını artırıyoruz
+        if (animal.group != null)
+        {
+            int pointsToIncrease = animal.group.groupName == "Dog" ? 10 : 5;  // Köpekler için daha fazla, inekler için daha az puan
+            animal.group.IncreaseRelationshipPoints(pointsToIncrease);  
         }
     }
 }

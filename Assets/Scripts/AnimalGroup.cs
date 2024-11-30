@@ -1,28 +1,45 @@
+using System;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class AnimalGroup 
+public class AnimalGroup : MonoBehaviour
 {
-    public string groupName;
-    public int relationshipPoints;
-    public bool isAggressive;
-    
+    public string groupName;  // Grubun ismi (inek ya da köpek)
+    public int relationshipPoints = 0;  // Grup için başlangıç ilişki puanı
+    public List<Animal> animalsInGroup;  // Bu gruptaki hayvanlar
+    public float decreaseRate = 1f;  // Puanın her saniye azalacağı oran
 
-    public AnimalGroup(string name)
+    private float timeSinceLastDecrease = 0f;  // Son azalmanın üzerinden geçen sür
+
+    void Start()
     {
-        groupName = name;
-        relationshipPoints = 0; // Başlangıç puanı
-        isAggressive = true; // Başlangıçta saldırgan
+        // Hayvanları grup içinde otomatik olarak eklemek için
+        animalsInGroup = new List<Animal>(GetComponentsInChildren<Animal>());
     }
 
-    // İlişki puanı güncelleme metodu
-    public void UpdateRelationshipPoints(int amount)
+    private void Update()
+    {
+        // Zamanla ilişki puanını azalt
+        timeSinceLastDecrease += Time.deltaTime;
+
+        if (timeSinceLastDecrease >= 1f)  // Her saniye puan azalt
+        {
+            DecreaseRelationshipPoints(1);  // Puanı 1 azalt
+            timeSinceLastDecrease = 0f;  // Zaman sayacını sıfırla
+        }
+    }
+
+    public void IncreaseRelationshipPoints(int amount)
     {
         relationshipPoints += amount;
-
-        // Eğer puan belli bir değeri aşarsa saldırganlık durumu değişir
-        if (relationshipPoints >= 10)
-        {
-            isAggressive = false; // Artık saldırgan değil
-        }
+        relationshipPoints = Mathf.Clamp(relationshipPoints, 0, 100);  // Puanları 0-100 arası sınırla
+        Debug.Log($"{groupName} grubunun ilişki puanı: {relationshipPoints}");
+    }
+    
+    public void DecreaseRelationshipPoints(int amount)
+    {
+        relationshipPoints -= amount;
+        relationshipPoints = Mathf.Clamp(relationshipPoints, 0, 100);  // Puanları 0-100 arası sınırla
+        Debug.Log($"{groupName} grubunun ilişki puanı: {relationshipPoints}");
     }
 }

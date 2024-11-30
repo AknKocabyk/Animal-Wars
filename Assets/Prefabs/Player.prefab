@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 390614410350307386}
   - component: {fileID: 5589854609531810923}
   - component: {fileID: 8351919933143533907}
-  - component: {fileID: 3721249809647935753}
+  - component: {fileID: 2557936416279679596}
   - component: {fileID: 1439160194650085610}
   m_Layer: 0
   m_Name: Player
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   RunningSpeed: 10
---- !u!114 &3721249809647935753
+--- !u!114 &2557936416279679596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71ccbd23d593a04783d2fceebcdc5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionRange: 3
+  interactKey: 101
 --- !u!95 &1439160194650085610
 Animator:
   serializedVersion: 7
