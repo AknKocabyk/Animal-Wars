@@ -3,7 +3,12 @@ guid: 71432432936b88645849fea940f93e48
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: girafetexture
+    second: {fileID: 2800000, guid: 03522670d1d882f4d8e2ad86d711a7b3, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
