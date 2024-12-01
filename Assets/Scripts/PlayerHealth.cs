@@ -1,27 +1,42 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-     public float health = 100f;  // Karakterin başlangıç sağlığı
-     private Animator animator;
-
-
-     private void Start()
-     {
-         animator = GetComponent<Animator>();
-     }
-
-     public void TakeDamage(float damage)
-        {
-            health -= damage;  // Sağlık miktarını azalt
-            Debug.Log($"Karakterin canı: {health}");
+    public float maxHealth = 100f;  // Karakterin maksimum canı
+    public float currentHealth;    // Mevcut can
+    public Slider healthBar;       // Can barı (UI Slider)
     
-            if (health <= 0f)
-            {
-                Die();  // Eğer can 0'ın altına düşerse, karakter ölür
-            }
+    private Animator animator;
+
+    void Start()
+    {
+        currentHealth = maxHealth;  // Oyunun başında tam can
+        healthBar.maxValue = maxHealth;  // Can barının maksimum değeri
+        healthBar.value = currentHealth;  // Başlangıçtaki değer
+        
+        animator = GetComponent<Animator>();
+    }
+
+    public void TakeDamage(float amount)
+    {
+        currentHealth -= amount; // Alınan hasar kadar can azalt
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Canı 0 ile max arasında tut
+        healthBar.value = currentHealth; // Can barını güncelle
+
+        if (currentHealth <= 0)
+        {
+            Die();
         }
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount; // Can artır
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Canı sınırla
+        healthBar.value = currentHealth; // Can barını güncelle
+    }
     
         void Die()
         {
