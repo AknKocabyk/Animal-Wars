@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 5589854609531810923}
   - component: {fileID: 8351919933143533907}
   - component: {fileID: 2557936416279679596}
+  - component: {fileID: 3271954104996175002}
   - component: {fileID: 1439160194650085610}
   m_Layer: 0
   m_Name: Player
@@ -169,8 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaea01687b7cd2841a43640178aa0d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  RunningSpeed: 10
+  moveSpeed: 18
+  RunningSpeed: 30
 --- !u!114 &2557936416279679596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionRange: 3
   interactKey: 101
+--- !u!114 &3271954104996175002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451969224697311825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3d875762850b248bcf5086ed7cf246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!95 &1439160194650085610
 Animator:
   serializedVersion: 7
