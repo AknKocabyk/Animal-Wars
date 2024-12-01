@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;    // Mevcut can
     public Slider healthBar;       // Can barı (UI Slider)
     public GameObject deadPanel;
+    public GameObject timerObject;
     
     private Animator animator;
 
@@ -51,5 +52,6 @@ public class PlayerHealth : MonoBehaviour
         public void DeadPanelActive()
         {
             deadPanel.SetActive(true);
+            timerObject.SetActive(false);
         }
 }

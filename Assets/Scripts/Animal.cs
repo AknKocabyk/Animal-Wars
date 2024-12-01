@@ -14,6 +14,8 @@ public class Animal : MonoBehaviour
 
     private bool isChasing = false; // Hayvanın koşup koşmadığını kontrol eder
     private bool isAttacking = false; // Hayvanın saldırıp saldırmadığını kontrol eder
+    
+    public float runDistance;
 
     void Start()
     {
@@ -31,7 +33,7 @@ public class Animal : MonoBehaviour
 
     void HandleAnimalBehavior()
     {
-        if (group.relationshipPoints >= 80)
+        if (group.relationshipPoints >= 85)
         {
             // İlişki puanı 80 veya üzerindeyse hayvan Idle durumuna geçer
             if (isChasing || animator.GetBool("Running"))
@@ -57,7 +59,7 @@ public class Animal : MonoBehaviour
                 AttackPlayer();
             }
         }
-        else if (distanceToPlayer < 10f) // Eğer 10 birimden daha yakına gelirse koşmaya başlasın
+        else if (distanceToPlayer < runDistance) // Eğer runDistance birimden daha yakına gelirse koşmaya başlasın
         {
             // Koşma animasyonuna geçip hareket etmeye başlasın
             if (!isChasing)
