@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100f;  // Karakterin maksimum canı
     public float currentHealth;    // Mevcut can
     public Slider healthBar;       // Can barı (UI Slider)
+    public GameObject deadPanel;
     
     private Animator animator;
 
@@ -44,5 +45,11 @@ public class PlayerHealth : MonoBehaviour
             // Ölüm işlemi yapılabilir
             //Menü sahnesini yükle
             animator.SetBool("Death",true);
+            Invoke("DeadPanelActive",1.2f);
+        }
+
+        public void DeadPanelActive()
+        {
+            deadPanel.SetActive(true);
         }
 }
